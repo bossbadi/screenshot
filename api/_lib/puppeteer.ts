@@ -21,7 +21,7 @@ export async function getScreenshot(url, width, height, delay) {
 
     await page.goto(url, {
         timeout: 15 * 1000,
-        waitUntil: ['domcontentloaded'],
+        waitUntil: ['load'],
     });
 
     // wait for 2 seconds
