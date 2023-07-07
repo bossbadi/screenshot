@@ -23,6 +23,10 @@ export async function getScreenshot(url, width, height, delay) {
         waitUntil: ['networkidle2'],
     });
 
+    await page.evaluate(() => {
+        window.scrollBy(0, window.innerHeight);
+    })
+
     await timeout(Number(delay) || 0);
 
     const file = await page.screenshot();
