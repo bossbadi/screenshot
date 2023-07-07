@@ -18,7 +18,15 @@ export async function getScreenshot(url, width, height, delay) {
     const page = await getPage();
     await page.goto(url);
     await page.setViewport({ width: Number(width) || 1920, height: Number(height) || 1080});
-    await page.waitFor(Number(delay) || 0);
+
+    await page.goto(url, {
+        timeout: 15 * 1000,
+        waitUntil: ['domcontentloaded'],
+    });
+
+    // wait for 2 seconds
+    await page.waitForTimeout(2000);
+
     const file = await page.screenshot();
     return file;
 }
