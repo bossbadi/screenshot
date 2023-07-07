@@ -25,7 +25,7 @@ export async function getScreenshot(url, width, height, delay) {
     });
 
     // wait for 2 seconds
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(Number(delay) || 0);
 
     const file = await page.screenshot();
     return file;
