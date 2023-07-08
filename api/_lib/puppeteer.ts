@@ -19,6 +19,7 @@ export async function getScreenshot(url, width, height, delay) {
   await page.setViewport({ width: Number(width) || 1920, height: Number(height) || 1080 });
 
   await page.goto(url, { waitUntil: "networkidle0" });
+  await page.waitForSelector("#iconsDiv"); 
 
   const file = await page.screenshot({ fullPage: true });
   return file;
