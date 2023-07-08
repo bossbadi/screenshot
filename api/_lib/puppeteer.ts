@@ -18,21 +18,8 @@ export async function getScreenshot(url, width, height, delay) {
     const page = await getPage();
     await page.setViewport({ width: Number(width) || 1920, height: Number(height) || 1080});
 
-    await page.goto(url, {
-        timeout: 15 * 1000,
-        waitUntil: ['networkidle2'],
-    });
+    await page.goto(url, { waitUntil: "networkidle0" });
 
-    await page.evaluate(() => {
-        window.scrollBy(0, window.innerHeight);
-    })
-
-    await timeout(Number(delay) || 0);
-
-    const file = await page.screenshot();
+    const file = await page.screenshot({fullPage: true});
     return file;
-}
-
-async function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
